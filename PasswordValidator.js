@@ -14,50 +14,41 @@ const validateLength = password => {
 /** Validates if the password includes at least one capital letter */
 const validateUpperCase = password => {
     const re = new RegExp("[A-Z]");
-    let count = 0;
-    password.split('').map( letter => {
-        if (re.test(letter)) {
-            count++;
-        }
-    });
+    const count = countMatches(password, re);
     return count > 0;
 };
 
 /** Validates if the password includes at least one lowercase letter */
 const validateLowerCase = password => {
     const re = new RegExp("[a-z]");
-    let count = 0;
-    password.split('').map( letter => {
-        if (re.test(letter)) {
-            count++;
-        }
-    });
+    const count = countMatches(password, re);
     return count > 0;
 };
 
 /** Validates if the password includes at least one number */
 const validateNumber = password => {
     const re = new RegExp("[0-9]");
-    let count = 0;
-    password.split('').map( letter => {
-        if (re.test(letter)) {
-            count++;
-        }
-    });
+    const count = countMatches(password, re);
     return count > 0;
 };
 
 /** Validates if the password includes an '_' (underscore character) */
 const validateSpecialCharacters = password => {
     const re = new RegExp("_");
+    const count = countMatches(password, re);
+    return count === 1;
+};
+
+/** Counts the occurrences of a regular expression in a string */
+const countMatches = (str, regex) => {
     let count = 0;
-    password.split('').map( letter => {
-        if (re.test(letter)) {
+    str.split('').map( letter => {
+        if (regex.test(letter)) {
             count++;
         }
     });
-    return count === 1;
-};
+    return count;
+}
 
 /** Test cases */
 console.log(`1. No length "Ab1_": ${validatePassword("Ab1_")}`);
